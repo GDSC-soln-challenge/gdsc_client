@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gdsc_client/constants.dart';
 import 'package:gdsc_client/routes.dart';
-import 'package:gdsc_client/screens/splash/splash_screen.dart';
+import 'package:gdsc_client/screens/splashScreen/logo_splash.dart';
+import 'package:gdsc_client/theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,17 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
-        fontFamily: 'Muli',
-        textTheme: const TextTheme(
-          bodyText1: TextStyle(color: kTextColor),
-          bodyText2: TextStyle(color: kTextColor),
-        ),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      // home: const SplashScreen(),
-      initialRoute: SplashScreen.routeName,
+      theme: theme(),
+      initialRoute: LogoSplash.routeName,
       routes: routes,
     );
   }

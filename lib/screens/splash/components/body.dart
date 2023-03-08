@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_client/screens/sign_in/sign_in_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
 import '../components/splash_content.dart';
@@ -71,7 +73,9 @@ class _BodyState extends State<Body> {
                     DefaultButton(
                       text: "Continue",
                       press: () {
-                        // Navigator.pushNamed(context, SignInScreen.routeName);
+                        Navigator.pushNamed(context, SignInScreen.routeName);
+                        // Navigator.pushReplacementNamed(
+                        //     context, SignInScreen.routeName);
                       },
                     ),
                     const Spacer(),
