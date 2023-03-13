@@ -45,6 +45,9 @@ dependencies:
   flutter_screenutil: ^5.6.1
   image_card: ^0.0.4
   carousel_slider: ^4.2.1
+  simple_animations: ^5.0.0+3
+  coverflow: ^2.0.3
+  carousel_images: ^1.1.2
 
 dev_dependencies:
   flutter_test:
