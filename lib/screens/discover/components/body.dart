@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import '../../../components/category_boxes.dart';
 import '../../../components/discover_small_card.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import 'package:carousel_images/carousel_images.dart';
+
+import '../../donate_money/donate_screen.dart';
 
 class Body extends StatefulWidget {
   const Body({
@@ -14,6 +16,14 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
+  final List<String> listImages = [
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStHQUAO2NU1SIbQaoivul6sszFCAWw7kDySQ&usqp=CAU',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStHQUAO2NU1SIbQaoivul6sszFCAWw7kDySQ&usqp=CAU',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStHQUAO2NU1SIbQaoivul6sszFCAWw7kDySQ&usqp=CAU',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStHQUAO2NU1SIbQaoivul6sszFCAWw7kDySQ&usqp=CAU',
+    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStHQUAO2NU1SIbQaoivul6sszFCAWw7kDySQ&usqp=CAU',
+  ];
+
   Widget buildCard() {
     return Card(
       elevation: 5,
@@ -88,35 +98,10 @@ class _BodyState extends State<Body> {
       backgroundColor: kPrimaryLightColor,
       body: SafeArea(
         child: ListView(
-          physics: const BouncingScrollPhysics(),
+          // physics: const BouncingScrollPhysics(),
           children: [
             SizedBox(
-              height: getProportionateScreenHeight(120),
-              child: ListView(
-                physics: const BouncingScrollPhysics(),
-                scrollDirection: Axis.horizontal,
-                children: [
-                  SizedBox(
-                    width: getProportionateScreenWidth(14),
-                  ),
-                  CategoryBoxes(
-                    text: "Poverty",
-                    onPressed: (value) => print(value),
-                  ),
-                  CategoryBoxes(
-                    text: "Zero Hunger",
-                    onPressed: (value) => print(value),
-                  ),
-                  CategoryBoxes(
-                    text: "Health",
-                    onPressed: (value) => print(value),
-                  ),
-                  CategoryBoxes(
-                    text: "Education",
-                    onPressed: (value) => print(value),
-                  ),
-                ],
-              ),
+              height: getProportionateScreenHeight(20),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -178,7 +163,9 @@ class _BodyState extends State<Body> {
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   DiscoverSmallCard(
-                    onTap: () {},
+                    onTap: () {
+                      // Navigator.pushNamed(context, DonateMoneyScreen.routeName);
+                    },
                     title: "Money",
                     gradientStartColor: const Color(0xff13DEA0),
                     gradientEndColor: const Color(0xff06B782),
@@ -219,7 +206,35 @@ class _BodyState extends State<Body> {
                   ),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: getProportionateScreenHeight(28)),
+            // Text("Coverflow carousel")
+            Padding(
+              padding: EdgeInsets.only(left: getProportionateScreenWidth(28)),
+              child: Text(
+                "Our Recent Activities",
+                style: TextStyle(
+                    color: kTextColor,
+                    fontWeight: FontWeight.w500,
+                    fontSize: getProportionateScreenWidth(14)),
+              ),
+            ),
+            // CarouselImages using carousel_images package's CarouselImages widget
+            SizedBox(height: getProportionateScreenHeight(16)),
+            SingleChildScrollView(
+              child: CarouselImages(
+                scaleFactor: 0.7,
+                listImages: listImages,
+                height: 200.0,
+                borderRadius: 30.0,
+                // cachedNetworkImage: true,
+                verticalAlignment: Alignment.bottomCenter,
+                onTap: (index) {
+                  print('Tapped on page $index');
+                },
+              ),
+            ),
+            SizedBox(height: getProportionateScreenHeight(28)),
           ],
         ),
       ),
