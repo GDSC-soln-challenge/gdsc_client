@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:gdsc_client/screens/login_success/login_success_screen.dart';
+import 'package:gdsc_client/screens/sign_in/sign_in_screen.dart';
 
 import '../../../components/custom_suffix_icon.dart';
 import '../../../components/default_button.dart';
@@ -25,15 +28,39 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   String? address;
   EmailOTP myauth = EmailOTP();
 
-  Future save() async {
-    var url = Uri.parse('http://10.0.2.2:8000/api/auth/register/profile');
-    var response = await http.post(url, body: {
+  // Future save() async {
+  //   var url = Uri.parse('http://10.0.2.2:8000/api/auth/register/profile');
+  //   var response = await http.post(url, body: {
+  //     'name': name,
+  //     'profession': profession,
+  //     'phone': phoneNumber,
+  //     'location': address
+  //   });
+  //   return response;
+  // }
+
+  void registerProfile() async {
+    var reqBody = {
       'name': name,
       'profession': profession,
       'phone': phoneNumber,
       'location': address
-    });
-    return response;
+    };
+    var response = await http.post(
+        Uri.parse('http://10.0.2.2:8000/api/auth/register/profile'),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: jsonEncode(reqBody));
+    print("response: ${response.body}");
+    var jsonResponse = jsonDecode(response.body);
+    if (jsonResponse['status'] == true) {
+      Navigator.pushNamed(context, SignInScreen.routeName);
+    } else {
+      const SnackBar(
+        content: Text('Error'),
+      );
+    }
   }
 
   void addError({String? error}) {
@@ -59,29 +86,20 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
       child: Column(
         children: [
           buildFirstNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30 / 812 * MediaQuery.of(context).size.height),
           buildLastNameFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30 / 812 * MediaQuery.of(context).size.height),
           buildPhoneNumberFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30 / 812 * MediaQuery.of(context).size.height),
           buildAddressFormField(),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(40)),
+          SizedBox(height: 40 / 812 * MediaQuery.of(context).size.height),
           DefaultButton(
             text: "continue",
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                save().then((value) => {
-                      if (value.statusCode == 200)
-                        {Navigator.pushNamed(context, LoginSuccess.routeName)}
-                      else
-                        {
-                          const SnackBar(
-                            content: Text('Error'),
-                          )
-                        }
-                    });
+                registerProfile();
               }
             },
           ),

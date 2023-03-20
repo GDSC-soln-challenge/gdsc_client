@@ -1,10 +1,14 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../components/custom_suffix_icon.dart';
 import '../../../components/default_button.dart';
 import '../../../components/form_error.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import '../../discover/discover_screen.dart';
 import '../../forgot_password/forgot_password_screen.dart';
 import '../../login_success/login_success_screen.dart';
 import 'package:http/http.dart' as http;
@@ -22,14 +26,52 @@ class _SignFormState extends State<SignForm> {
   String? password;
   bool? remember = false;
   final List<String> errors = [];
+  late SharedPreferences prefs;
 
-  Future save() async {
-    var url = Uri.parse('http://10.0.2.2:8000/api/auth/login');
-    var response = await http.post(url, body: {
+  @override
+  void initState() {
+    super.initState();
+    initSharedPref();
+  }
+
+  void initSharedPref() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  void loginUser() async {
+    var reqBody = {
       'email': email,
       'password': password,
-    });
-    return response;
+    };
+
+    var response = await http.post(
+      Uri.parse('http://10.0.2.2:8000/api/auth/login'),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(reqBody),
+    );
+
+    var jsonResponse = jsonDecode(response.body);
+    // print("email: ${jsonResponse['data']['email']}");
+    print("status: ${jsonResponse['status']}");
+    if (jsonResponse['status'] == true) {
+      var myToken = jsonResponse['data']['accessToken'];
+      prefs.setString('accessToken', myToken);
+      print("myToken: $myToken");
+      // ignore: use_build_context_synchronously
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => DiscoverPage(token: myToken)));
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('There was an error logging in. Please try again.'),
+        ),
+      );
+    }
   }
 
   void addError({required String error}) {
@@ -88,12 +130,12 @@ class _SignFormState extends State<SignForm> {
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginSuccess(),
-                  ),
-                );
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const LoginSuccess(),
+                //   ),
+                // );
                 // save().then((value) {
                 //   if (value.statusCode == 200) {
                 //     Navigator.pushNamed(context, LoginSuccess.routeName);
@@ -105,6 +147,7 @@ class _SignFormState extends State<SignForm> {
                 //     );
                 //   }
                 // });
+                loginUser();
               }
             },
           ),

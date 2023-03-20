@@ -2,6 +2,7 @@ import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gdsc_client/screens/complete_profile/complete_profile_screen.dart';
+import 'package:gdsc_client/screens/home/home_screen.dart';
 import 'package:gdsc_client/screens/login_success/login_success_screen.dart';
 
 import '../../../components/default_button.dart';
@@ -208,7 +209,7 @@ class _OtpFormState extends State<OtpForm> {
               if (widget.myauth.verifyOTP(otp: otpController)) {
                 Navigator.pushNamed(context, CompleteProfileScreen.routeName);
               } else {
-                SnackBar(content: Text("Invalid OTP"));
+                const SnackBar(content: Text("Invalid OTP"));
               }
             },
           )

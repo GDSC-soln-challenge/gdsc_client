@@ -101,11 +101,12 @@ class _BodyState extends State<Body> {
           // physics: const BouncingScrollPhysics(),
           children: [
             SizedBox(
-              height: getProportionateScreenHeight(20),
+              // height: getProportionateScreenHeight(20),
+              height: 20 / 812 * MediaQuery.of(context).size.height,
             ),
             Padding(
               padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(28)),
+                  horizontal: 28 / 375 * MediaQuery.of(context).size.width),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -114,7 +115,7 @@ class _BodyState extends State<Body> {
                     style: TextStyle(
                         color: kTextColor,
                         fontWeight: FontWeight.w500,
-                        fontSize: getProportionateScreenWidth(14)),
+                        fontSize: 14 / 375 * MediaQuery.of(context).size.width),
                   ),
                   GestureDetector(
                       onTap: onSeeAllTapped,
@@ -122,12 +123,14 @@ class _BodyState extends State<Body> {
                           style: TextStyle(
                               color: const Color(0xff4A80F0),
                               fontWeight: FontWeight.w500,
-                              fontSize: getProportionateScreenWidth(14))))
+                              fontSize: 14 /
+                                  375 *
+                                  MediaQuery.of(context).size.width)))
                 ],
               ),
             ),
             SizedBox(
-              height: getProportionateScreenHeight(16),
+              height: 16 / 812 * MediaQuery.of(context).size.height,
             ),
             SizedBox(
                 height: 200,
@@ -138,33 +141,35 @@ class _BodyState extends State<Body> {
                     return buildCard();
                   },
                 )),
-            SizedBox(height: getProportionateScreenHeight(28)),
+            SizedBox(height: 28 / 812 * MediaQuery.of(context).size.height),
             Padding(
-              padding: EdgeInsets.only(left: getProportionateScreenWidth(28)),
+              padding: EdgeInsets.only(
+                  left: 28 / 375 * MediaQuery.of(context).size.width),
               child: Text(
                 "Donate Now",
                 style: TextStyle(
                     color: kTextColor,
                     fontWeight: FontWeight.w500,
-                    fontSize: getProportionateScreenWidth(14)),
+                    fontSize: 14 / 375 * MediaQuery.of(context).size.width),
               ),
             ),
-            SizedBox(height: getProportionateScreenHeight(16)),
+            SizedBox(height: 16 / 812 * MediaQuery.of(context).size.height),
             Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(28)),
+              padding: const EdgeInsets.symmetric(horizontal: 28),
               child: GridView(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    crossAxisSpacing: getProportionateScreenWidth(19),
-                    mainAxisExtent: getProportionateScreenWidth(125),
-                    mainAxisSpacing: getProportionateScreenWidth(19)),
+                  crossAxisCount: 2,
+                  crossAxisSpacing:
+                      19 / 375 * MediaQuery.of(context).size.width,
+                  mainAxisExtent: 125 / 375 * MediaQuery.of(context).size.width,
+                  mainAxisSpacing: 19 / 375 * MediaQuery.of(context).size.width,
+                ),
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 children: [
                   DiscoverSmallCard(
                     onTap: () {
-                      // Navigator.pushNamed(context, DonateMoneyScreen.routeName);
+                      Navigator.pushNamed(context, DonateMoneyScreen.routeName);
                     },
                     title: "Money",
                     gradientStartColor: const Color(0xff13DEA0),
@@ -207,20 +212,21 @@ class _BodyState extends State<Body> {
                 ],
               ),
             ),
-            SizedBox(height: getProportionateScreenHeight(28)),
+            SizedBox(height: 28 / 812 * MediaQuery.of(context).size.height),
             // Text("Coverflow carousel")
             Padding(
-              padding: EdgeInsets.only(left: getProportionateScreenWidth(28)),
+              padding: EdgeInsets.only(
+                  left: 28 / 375 * MediaQuery.of(context).size.width),
               child: Text(
                 "Our Recent Activities",
                 style: TextStyle(
                     color: kTextColor,
                     fontWeight: FontWeight.w500,
-                    fontSize: getProportionateScreenWidth(14)),
+                    fontSize: 14 / 375 * MediaQuery.of(context).size.width),
               ),
             ),
             // CarouselImages using carousel_images package's CarouselImages widget
-            SizedBox(height: getProportionateScreenHeight(16)),
+            SizedBox(height: 16 / 812 * MediaQuery.of(context).size.height),
             SingleChildScrollView(
               child: CarouselImages(
                 scaleFactor: 0.7,
@@ -234,7 +240,7 @@ class _BodyState extends State<Body> {
                 },
               ),
             ),
-            SizedBox(height: getProportionateScreenHeight(28)),
+            SizedBox(height: 28 / 812 * MediaQuery.of(context).size.height),
           ],
         ),
       ),

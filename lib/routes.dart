@@ -1,6 +1,7 @@
 import 'package:email_otp/email_otp.dart';
 import 'package:flutter/material.dart';
 import 'package:gdsc_client/screens/complete_profile/complete_profile_screen.dart';
+import 'package:gdsc_client/screens/discover/discover_screen.dart';
 import 'package:gdsc_client/screens/donate_money/donate_screen.dart';
 import 'package:gdsc_client/screens/forgot_password/forgot_password_screen.dart';
 import 'package:gdsc_client/screens/home/home_screen.dart';
@@ -21,4 +22,5 @@ final Map<String, WidgetBuilder> routes = {
   LogoSplash.routeName: (context) => const LogoSplash(),
   HomeScreen.routeName: (context) => const HomeScreen(),
   DonateMoneyScreen.routeName: (context) => const DonateMoneyScreen(),
+  DiscoverPage.routeName: (context) => const DiscoverPage(),
 };
