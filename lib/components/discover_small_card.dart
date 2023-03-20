@@ -41,8 +41,8 @@ class DiscoverSmallCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
           gradient: LinearGradient(
             colors: [
-              gradientStartColor ?? Color(0xff441DFC),
-              gradientEndColor ?? Color(0xff4E81EB),
+              gradientStartColor ?? const Color(0xff441DFC),
+              gradientEndColor ?? const Color(0xff4E81EB),
             ],
             begin: Alignment.bottomLeft,
             end: Alignment.topRight,
@@ -51,26 +51,26 @@ class DiscoverSmallCard extends StatelessWidget {
         child: Stack(
           children: [
             SizedBox(
-              height: getProportionateScreenWidth(125),
-              width: getProportionateScreenWidth(150),
+              height: 125 / 375 * MediaQuery.of(context).size.width,
+              width: 150 / 375 * MediaQuery.of(context).size.width,
             ),
             ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: SizedBox(
-                height: getProportionateScreenWidth(125),
-                width: getProportionateScreenWidth(150),
+                height: 125 / 375 * MediaQuery.of(context).size.width,
+                width: 150 / 375 * MediaQuery.of(context).size.width,
                 child: Stack(
                   children: [
                     SizedBox(
-                      height: getProportionateScreenWidth(125),
-                      width: getProportionateScreenWidth(150),
+                      height: 125 / 375 * MediaQuery.of(context).size.width,
+                      width: 150 / 375 * MediaQuery.of(context).size.width,
                       child: const SvgAsset(
                           assetName: AssetName.vectorSmallBottom),
                     ),
                     SizedBox(
                       child: SvgAsset(
-                          height: getProportionateScreenWidth(125),
-                          width: getProportionateScreenWidth(150),
+                          height: 125 / 375 * MediaQuery.of(context).size.width,
+                          width: 150 / 375 * MediaQuery.of(context).size.width,
                           fit: BoxFit.fitHeight,
                           assetName: AssetName.vectorSmallTop),
                     ),
@@ -79,13 +79,13 @@ class DiscoverSmallCard extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: getProportionateScreenWidth(125),
-              width: getProportionateScreenWidth(150),
+              height: 125 / 375 * MediaQuery.of(context).size.width,
+              width: 150 / 375 * MediaQuery.of(context).size.width,
               child: Padding(
                 padding: EdgeInsets.only(
-                    left: getProportionateScreenWidth(20),
-                    top: getProportionateScreenWidth(20),
-                    bottom: getProportionateScreenWidth(20)),
+                    left: 20 / 375 * MediaQuery.of(context).size.width,
+                    top: 20 / 375 * MediaQuery.of(context).size.width,
+                    bottom: 20 / 375 * MediaQuery.of(context).size.width),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,7 +93,8 @@ class DiscoverSmallCard extends StatelessWidget {
                     Text(
                       title!,
                       style: TextStyle(
-                          fontSize: getProportionateScreenWidth(18),
+                          fontSize:
+                              18 / 375 * MediaQuery.of(context).size.width,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
                     ),
@@ -102,8 +103,10 @@ class DiscoverSmallCard extends StatelessWidget {
                         icon ??
                             SvgAsset(
                               assetName: AssetName.headphone,
-                              height: getProportionateScreenWidth(24),
-                              width: getProportionateScreenWidth(24),
+                              height:
+                                  24 / 375 * MediaQuery.of(context).size.width,
+                              width:
+                                  24 / 375 * MediaQuery.of(context).size.width,
                             ),
                       ],
                     )

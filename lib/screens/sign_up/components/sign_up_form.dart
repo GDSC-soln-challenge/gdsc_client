@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../components/custom_suffix_icon.dart';
 import '../../../components/default_button.dart';
@@ -25,14 +28,74 @@ class _SignUpFormState extends State<SignUpForm> {
   String? confirm_password;
   bool remember = false;
   EmailOTP myauth = EmailOTP();
-  Future save() async {
-    var url = Uri.parse('http://10.0.2.2:8000/api/auth/register');
-    var response = await http.post(url, body: {
+  late SharedPreferences prefs;
+  // Future save() async {
+  //   var url = Uri.parse('http://10.0.2.2:8000/api/auth/register');
+  //   var response = await http.post(url, body: {
+  //     'email': email,
+  //     'password': password,
+  //     'password_confirmation': confirm_password,
+  //   });
+  //   return response;
+  // }
+  @override
+  void initState() {
+    super.initState();
+    initSharedPref();
+  }
+
+  void initSharedPref() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  void registerUser() async {
+    var reqBody = {
       'email': email,
       'password': password,
-      'password_confirmation': confirm_password,
-    });
-    return response;
+      'password_confirmation': confirm_password
+    };
+
+    var response = await http.post(
+      Uri.parse('http://10.0.2.2:8000/api/auth/register'),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonEncode(reqBody),
+    );
+
+    var jsonResponse = jsonDecode(response.body);
+    if (jsonResponse['status'] == true) {
+      print("email: ${jsonResponse['data']['email']}");
+      print("status: ${jsonResponse['status']}");
+      var myToken = jsonResponse['data']['accessToken'];
+      prefs.setString('accessToken', myToken);
+      myauth.setConfig(
+        appEmail: "aausaf990@gmail.com",
+        appName: "Flutter App",
+        userEmail: email,
+        otpLength: 4,
+        otpType: OTPType.digitsOnly,
+      );
+      myauth.sendOTP().then((value) {
+        if (value) {
+          print("OTP sent");
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => OtpScreen(
+                  myauth: myauth,
+                ),
+              ));
+        }
+      });
+    } else {
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text("Something went wrong"),
+        ),
+      );
+    }
   }
 
   final List<String> errors = [];
@@ -71,30 +134,31 @@ class _SignUpFormState extends State<SignUpForm> {
             press: () {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                save().then((value) {
-                  if (value.statusCode == 200) {
-                    print("email: $email");
-                    myauth.setConfig(
-                      appEmail: "aausaf990@gmail.com",
-                      appName: "Flutter App",
-                      userEmail: email,
-                      otpLength: 4,
-                      otpType: OTPType.digitsOnly,
-                    );
-                    myauth.sendOTP().then((value) {
-                      if (value) {
-                        print("OTP sent");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => OtpScreen(
-                                myauth: myauth,
-                              ),
-                            ));
-                      }
-                    });
-                  }
-                });
+                // save().then((value) {
+                //   if (value.statusCode == 200) {
+                //     print("email: $email");
+                //     myauth.setConfig(
+                //       appEmail: "aausaf990@gmail.com",
+                //       appName: "Flutter App",
+                //       userEmail: email,
+                //       otpLength: 4,
+                //       otpType: OTPType.digitsOnly,
+                //     );
+                //     myauth.sendOTP().then((value) {
+                //       if (value) {
+                //         print("OTP sent");
+                //         Navigator.push(
+                //             context,
+                //             MaterialPageRoute(
+                //               builder: (context) => OtpScreen(
+                //                 myauth: myauth,
+                //               ),
+                //             ));
+                //       }
+                //     });
+                //   }
+                // });
+                registerUser();
               }
             },
           ),

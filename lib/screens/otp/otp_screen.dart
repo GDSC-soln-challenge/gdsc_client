@@ -6,7 +6,6 @@ import '../../size_config.dart';
 
 class OtpScreen extends StatelessWidget {
   static String routeName = "/otp";
-
   const OtpScreen({super.key, required this.myauth});
   final EmailOTP myauth;
   @override

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_client/screens/donate_money/components/donate_form.dart';
-import '../../../components/no_account_text.dart';
-import '../../../components/social_card.dart';
 import '../../../size_config.dart';
 
 class Body extends StatelessWidget {
