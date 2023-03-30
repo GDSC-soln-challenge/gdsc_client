@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gdsc_client/screens/discover/components/body.dart';
-import 'package:jwt_decoder/jwt_decoder.dart';
 import '../../components/navigation_drawer.dart';
 
 class DiscoverPage extends StatefulWidget {

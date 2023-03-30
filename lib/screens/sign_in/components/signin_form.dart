@@ -10,7 +10,6 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 import '../../discover/discover_screen.dart';
 import '../../forgot_password/forgot_password_screen.dart';
-import '../../login_success/login_success_screen.dart';
 import 'package:http/http.dart' as http;
 
 class SignForm extends StatefulWidget {

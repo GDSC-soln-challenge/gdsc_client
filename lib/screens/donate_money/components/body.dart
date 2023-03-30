@@ -26,7 +26,7 @@ class Body extends StatelessWidget {
                   ),
                 ),
                 const Text(
-                  "Sign in with your email and password  \nor continue with social media",
+                  "Donation is the best way to help others",
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gdsc_client/screens/allposts/allposts.dart';
 import '../../../components/discover_small_card.dart';
 import '../../../constants.dart';
-import '../../../size_config.dart';
 import 'package:carousel_images/carousel_images.dart';
 
 import '../../donate_money/donate_screen.dart';
@@ -247,7 +247,9 @@ class _BodyState extends State<Body> {
     );
   }
 
-  void onSeeAllTapped() {}
+  void onSeeAllTapped() {
+    Navigator.pushNamed(context, AllPosts.routeName);
+  }
 
   void onSleepMeditationTapped() {
     // Get.to(() => DetailPage(), transition: Transition.rightToLeft);

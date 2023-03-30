@@ -9,6 +9,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../screens/splashScreen/logo_splash.dart';
 
+var uid;
+var location;
+
 class NavigationDrawer extends StatefulWidget {
   final token;
   const NavigationDrawer({super.key, this.token});
@@ -29,6 +32,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     print("jwtDecodedToken: ${jwtDecodedToken}");
     print("id: ${jwtDecodedToken['id']}");
     userId = jwtDecodedToken['id'].toString();
+    uid = userId;
     getUserProfile();
   }
 
@@ -56,6 +60,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       setState(() {
         email = user['data']['email'];
         name = user['data']['name'];
+        location = user['data']['location'];
       });
       loading = false;
     } else {
